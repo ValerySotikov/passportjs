@@ -9,8 +9,8 @@ const flash = require('connect-flash');
 module.exports = app => {
   app.use(express.static('public'));
   app.use(express.json());
-  app.use(session({ secret: "cats" }));
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(session({ secret: "cats" }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
