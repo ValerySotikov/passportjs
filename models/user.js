@@ -4,10 +4,22 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     minlength: 5,
     maxlength: 255,
+    required: true
+  },
+  firstName: {
+    type: String,
+    minlength: 1,
+    maxlength: 100,
+    required: true
+  },
+  lastName: {
+    type: String,
+    minlength: 1,
+    maxlength: 100,
     required: true
   },
   email: {
@@ -21,8 +33,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 6
-  },
-  isAdmin: Boolean
+  }
 });
 
 function validateUser(user) {

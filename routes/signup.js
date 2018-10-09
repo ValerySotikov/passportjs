@@ -1,14 +1,14 @@
-const express = require('express');
 const passport = require('passport');
+const express = require('express');
 const app = express.Router();
 
 app.get('/', (req, res) => {
-  res.status(200).send('<h1>TEST LOGIN PAGE</h1>');
+  res.status(200).send('<h1>TEST SIGNUP PAGE</h1>');
 });
 
-app.post('/', passport.authenticate('login', {
+app.post('/', passport.authenticate('signup', {
   successRedirect: '/',
-  failureRedirect: '/login',
+  failureRedirect: '/signup',
   failureFlash: true
 }));
 
