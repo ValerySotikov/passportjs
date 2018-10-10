@@ -3,7 +3,6 @@ const _ = require('lodash');
 const LocalStrategy = require('passport-local');
 const { User } = require('../../models/user');
 
-
 module.exports = passport => {
   passport.use('signup', new LocalStrategy(
     { passReqToCallback: true },
@@ -21,7 +20,6 @@ module.exports = passport => {
             return done(null, false, req.flash('message', 'User already exists'));
           } else {
             let userDescription = _.pick(req.body, ['username', 'firstName', 'lastName', 'phone', 'email', 'password']);
-            //  Replace vanilla password with hash
             userDescription.password = createHash(userDescription.password);
             let user = new User(userDescription);
             user.save((err) => {
