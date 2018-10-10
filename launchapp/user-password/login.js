@@ -1,9 +1,8 @@
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const { User } = require('../../models/user');
 
-module.exports = () => {
+module.exports = passport => {
   passport.use('login', new LocalStrategy(
     { passReqToCallback: true },
     (req, username, password, done) => {

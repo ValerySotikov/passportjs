@@ -1,11 +1,10 @@
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const { User } = require('../../models/user');
 
 
-module.exports = () => {
+module.exports = passport => {
   passport.use('signup', new LocalStrategy(
     { passReqToCallback: true },
     (req, username, password, done) => {

@@ -13,6 +13,6 @@ module.exports = () => {
     });
   });
 
-  require('./user-password/login')();
-  require('./user-password/signup')();
+  require('./user-password/login')(passport);
+  require('./user-password/signup')(passport);
 };
