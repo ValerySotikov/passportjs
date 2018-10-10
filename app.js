@@ -3,7 +3,7 @@ const app = express();
 
 app.set('PORT', process.env.PORT || 3000);
 
-require('./launchapp/conf-app.js')(app);
+require('./launchapp/pipeline')(app);
 
 module.exports = app.listen(
   app.get('PORT'),

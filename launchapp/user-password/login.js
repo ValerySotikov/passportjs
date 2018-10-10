@@ -13,12 +13,10 @@ module.exports = () => {
       }
 
       User.findOne({ 'username': username }, (err, user) => {
-        if (err) {
-          return done(err);
-        }
+        if (err) return done(err);
 
         if (!user) {
-          console.log('User with username not found', username);
+          console.log(`User with the username ${username} is not found`);
           return done(null, false, req.flash('message', 'User not found'));
         }
 

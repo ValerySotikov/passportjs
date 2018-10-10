@@ -3,11 +3,11 @@ const express = require('express');
 const app = express.Router();
 
 app.get('/', (req, res) => {
-  res.status(200).send('<h1>TEST SIGNUP PAGE</h1>');
+  res.render('signup');
 });
 
 app.post('/', passport.authenticate('signup', {
-  successRedirect: '/',
+  successRedirect: '/login',
   failureRedirect: '/signup',
   failureFlash: true
 }));

@@ -15,16 +15,13 @@ module.exports = () => {
       }
       findOrCreateUser = function() {
         User.findOne({ username: username }, (err, user) => {
-          if (err) {
-            console.log(done(err));
-            return done(err);
-          }
+          if (err) return done(err);
   
           if (user) {
-            console.log('User already exists');
+            console.log(`User with username ${username} is already exists`);
             return done(null, false, req.flash('message', 'User already exists'));
           } else {
-            let userDescription = _.pick(req.body, ['username', 'firstName', 'lastName', 'email', 'password']);
+            let userDescription = _.pick(req.body, ['username', 'firstName', 'lastName', 'phone', 'email', 'password']);
             //  Replace vanilla password with hash
             userDescription.password = createHash(userDescription.password);
             let user = new User(userDescription);

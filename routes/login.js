@@ -2,8 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const app = express.Router();
 
-app.get('/', (req, res) => {
-  res.status(200).send('<h1>TEST LOGIN PAGE</h1>');
+app.get('/', (req, res) => {  
+  res.render('login');
 });
 
 app.post('/', passport.authenticate('login', {
