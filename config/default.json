@@ -1,3 +1,5 @@
 {
-  "db": "mongodb://localhost/local"
+  "db": "mongodb://localhost/local",
+  "verifyEmail": "sotikov.valery@imperivm.team",
+  "verifyEmailPassword": "1qw2azxscde3"
 }

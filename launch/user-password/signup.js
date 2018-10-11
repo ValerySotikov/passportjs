@@ -2,6 +2,10 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const LocalStrategy = require('passport-local');
 const { User } = require('../../models/user');
+const { Token } = require('../../models/verify-token');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const config = require('config');
 
 module.exports = passport => {
   passport.use('signup', new LocalStrategy(
@@ -28,6 +32,7 @@ module.exports = passport => {
                 throw err;
               }
               console.log('Successful user registration');
+              sendMail(req.body.email, user._id);
               return done(null, user);
             });
           }
@@ -37,3 +42,33 @@ module.exports = passport => {
     }
   ));
 };
+
+const sendMail = (email, userID) => {
+    const token = crypto.createHash('sha256').update(email).digest('hex');
+
+    let tokenRecord = new Token({ token: token, userID: userID });
+    tokenRecord.save();
+  
+    const transporter = nodemailer.createTransport({
+      service: 'yandex',
+      auth: {
+        user: 'sotikov.valery@imperivm.team',
+        pass: '1qw2azxscde3'
+      }
+    });
+  
+    const mailOptions = {
+      from: 'sotikov.valery@imperivm.team',
+      to: email,
+      subject: 'Verify email',
+      text: `Please, follow the link to verify your email: http://localhost:3000/signup/verify-email?action=put&token=${token}`
+    };
+  
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  };
