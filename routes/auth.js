@@ -28,17 +28,10 @@ app.put('/signup/verify-email', async (req, res) => {
   const token = await Token.findOneAndRemove({ token: req.query.token }).then(async response => {
     await User.findByIdAndUpdate(response.userID, { active: true });
   });
-  // const token = Token.findOneAndRemove({token: req.query.token});
-  // console.log(token);
-  // console.log(token.userID);
-
-  // User.findByIdAndUpdate(token.userID, (err, user) => {
-  //   user.active = true;
-  // });
 });
 
 app.post('/signup', passport.authenticate('signup', {
-  successRedirect: '/verify',
+  successRedirect: '/login',
   failureRedirect: '/signup',
   failureFlash: true
 }));

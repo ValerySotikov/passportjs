@@ -46,8 +46,7 @@ module.exports = passport => {
 const sendMail = (email, userID) => {
     const token = crypto.createHash('sha256').update(email).digest('hex');
 
-    let tokenRecord = new Token({ token: token, userID: userID });
-    tokenRecord.save();
+    new Token({ token: token, userID: userID }).save();
   
     const transporter = nodemailer.createTransport({
       service: 'yandex',
@@ -65,10 +64,7 @@ const sendMail = (email, userID) => {
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+      error ? console.log(error)
+            : console.log('Email sent: ' + info.response);
     });
   };
